@@ -9,6 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+    <param-name>data.filename</param-name>
+    <param-value>/WEB-INF/resources/data.json</param-value>
+  </context-param>
+  <servlet>
+    <servlet-name>ApiInitServlet</servlet-name>
+    <servlet-class>com.pancredit.api.ApiInitServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
   <servlet>
     <servlet-name>ApiServlet</servlet-name>
     <servlet-class>com.pancredit.api.ApiServlet</servlet-class>
@@ -17,5 +26,24 @@
     <servlet-name>ApiServlet</servlet-name>
     <url-pattern>/ApiServlet</url-pattern>
   </servlet-mapping>
-  
+  <servlet-mapping>
+    <servlet-name>ApiServlet</servlet-name>
+    <url-pattern>/ApiServlet/*</url-pattern>
+  </servlet-mapping>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/ApiExceptionHandler</location>
+  </error-page>
+  <error-page>
+    <exception-type>javax.validation.ValidationException</exception-type>
+    <location>/ApiExceptionHandler</location>
+  </error-page>
+  <error-page>
+    <exception-type>com.pancredit.exception.ResourceNotFoundException</exception-type>
+    <location>/ApiExceptionHandler</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/ApiExceptionHandler</location>
+  </error-page>
 </web-app>
